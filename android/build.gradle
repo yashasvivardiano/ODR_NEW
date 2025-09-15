@@ -4,6 +4,10 @@ buildscript {
   repositories {
     google()
     mavenCentral()
+    // Fallback repositories
+    maven { url "https://jcenter.bintray.com" }
+    maven { url "https://repo1.maven.org/maven2" }
+    gradlePluginPortal()
   }
   dependencies {
     classpath('com.android.tools.build:gradle')
@@ -29,7 +33,11 @@ allprojects {
 
     google()
     mavenCentral()
+    // Fallback repositories
+    maven { url "https://jcenter.bintray.com" }
+    maven { url "https://repo1.maven.org/maven2" }
     maven { url 'https://www.jitpack.io' }
+    gradlePluginPortal()
   }
 }
 
