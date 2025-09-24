@@ -3,10 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useAuthStore } from './src/store/authStore';
 import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
-import FilingFormExample from './FilingFormExample';
-import HearingAIDashboard from './HearingAIDashboard';
-import RealAudioUpload from './RealAudioUpload';
-import HistoryScreen from './HistoryScreen';
+import { FilingFormExample, HearingAIDashboard, RealAudioUpload } from './ai/components';
+import HistoryScreen from './ai/history/HistoryScreen';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<'login' | 'signup'>('login');
