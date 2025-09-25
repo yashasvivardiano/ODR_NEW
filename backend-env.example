@@ -1,0 +1,17 @@
+# ODR AI Backend Environment Configuration
+
+# Required: OpenAI API Key
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Optional: Server Configuration
+PORT=3001
+NODE_ENV=development
+
+# Optional: AI Model Settings
+DEFAULT_AI_MODEL=gpt-4o-mini
+DEFAULT_TEMPERATURE=0.1
+DEFAULT_MAX_TOKENS=1500
+
+# Optional: Rate Limiting
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=100
