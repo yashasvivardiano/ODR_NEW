@@ -26,21 +26,84 @@ app.use(limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// MongoDB connection
+// MongoDB connection (optional for testing)
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/odr-platform';
 
+// Try to connect to MongoDB, but don't fail if it's not available
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
 .then(() => console.log('✅ MongoDB connected successfully'))
-.catch(err => console.error('❌ MongoDB connection error:', err));
+.catch(err => {
+  console.log('⚠️ MongoDB not available - running without database');
+  console.log('   Some features may not work without MongoDB');
+});
 
-// Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/cases', require('./routes/cases'));
-app.use('/api/users', require('./routes/users'));
-app.use('/api/mediators', require('./routes/mediators'));
+// Basic API routes (temporary)
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Backend is working!' });
+});
+
+// Basic working routes
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Backend is working!', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/status', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    message: 'ODR Backend API is running',
+    port: PORT,
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Try to load routes if they exist
+try {
+  if (require('fs').existsSync('./routes/auth.js')) {
+    app.use('/api/auth', require('./routes/auth'));
+    console.log('✅ Auth routes loaded');
+  }
+} catch (error) {
+  console.log('❌ Auth routes not available:', error.message);
+}
+
+try {
+  if (require('fs').existsSync('./routes/cases.js')) {
+    app.use('/api/cases', require('./routes/cases'));
+    console.log('✅ Cases routes loaded');
+  }
+} catch (error) {
+  console.log('❌ Cases routes not available:', error.message);
+}
+
+try {
+  if (require('fs').existsSync('./routes/users.js')) {
+    app.use('/api/users', require('./routes/users'));
+    console.log('✅ Users routes loaded');
+  }
+} catch (error) {
+  console.log('❌ Users routes not available:', error.message);
+}
+
+try {
+  if (require('fs').existsSync('./routes/mediators.js')) {
+    app.use('/api/mediators', require('./routes/mediators'));
+    console.log('✅ Mediators routes loaded');
+  }
+} catch (error) {
+  console.log('❌ Mediators routes not available:', error.message);
+}
+
+try {
+  if (require('fs').existsSync('./routes/ai.js')) {
+    app.use('/api/ai', require('./routes/ai'));
+    console.log('✅ AI routes loaded');
+  }
+} catch (error) {
+  console.log('❌ AI routes not available:', error.message);
+}
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
