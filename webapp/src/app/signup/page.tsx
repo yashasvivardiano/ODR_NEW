@@ -24,15 +24,39 @@ export default function SignUp() {
     
     setIsLoading(true)
     
-    // Simulate signup - replace with actual auth
-    setTimeout(() => {
-      localStorage.setItem('user', JSON.stringify({ 
-        name: formData.name,
-        email: formData.email, 
-        authenticated: true 
-      }))
-      router.push('/dashboard')
-    }, 1000)
+    try {
+      // Call your backend API
+      const response = await fetch('http://localhost:3001/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          fullName: formData.name,
+          email: formData.email, 
+          password: formData.password 
+        }),
+      })
+      
+      if (response.ok) {
+        const data = await response.json()
+        localStorage.setItem('user', JSON.stringify({ 
+          name: formData.name,
+          email: formData.email, 
+          authenticated: true,
+          token: data.token 
+        }))
+        router.push('/dashboard')
+      } else {
+        const error = await response.json()
+        alert('Registration failed: ' + (error.message || 'Please try again'))
+      }
+    } catch (error) {
+      console.error('Registration error:', error)
+      alert('Registration failed: Unable to connect to server')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (

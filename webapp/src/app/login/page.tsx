@@ -14,11 +14,30 @@ export default function Login() {
     e.preventDefault()
     setIsLoading(true)
     
-    // Simulate login - replace with actual auth
-    setTimeout(() => {
-      localStorage.setItem('user', JSON.stringify({ email, authenticated: true }))
-      router.push('/dashboard')
-    }, 1000)
+    try {
+      // Call your backend API
+      const response = await fetch('http://localhost:3001/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      })
+      
+      if (response.ok) {
+        const data = await response.json()
+        localStorage.setItem('user', JSON.stringify({ email, authenticated: true, token: data.token }))
+        router.push('/dashboard')
+      } else {
+        const error = await response.json()
+        alert('Login failed: ' + (error.message || 'Invalid credentials'))
+      }
+    } catch (error) {
+      console.error('Login error:', error)
+      alert('Login failed: Unable to connect to server')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
