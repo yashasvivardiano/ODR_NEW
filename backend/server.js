@@ -30,10 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/odr-platform';
 
 // Try to connect to MongoDB, but don't fail if it's not available
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(MONGODB_URI)
 .then(() => console.log('✅ MongoDB connected successfully'))
 .catch(err => {
   console.log('⚠️ MongoDB not available - running without database');
@@ -42,12 +39,17 @@ mongoose.connect(MONGODB_URI, {
 
 // Basic API routes (temporary)
 app.get('/api/test', (req, res) => {
-  res.json({ message: 'Backend is working!' });
+  res.json({ message: 'Backend is working!', timestamp: new Date().toISOString() });
 });
 
-// Basic working routes
-app.get('/api/test', (req, res) => {
-  res.json({ message: 'Backend is working!', timestamp: new Date().toISOString() });
+// Simple test registration endpoint (no database)
+app.post('/api/test-register', (req, res) => {
+  const { fullName, email, password } = req.body;
+  res.json({ 
+    message: 'Test registration successful', 
+    user: { fullName, email },
+    token: 'test-token-123'
+  });
 });
 
 app.get('/api/status', (req, res) => {
