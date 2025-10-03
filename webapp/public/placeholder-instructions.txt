@@ -1,0 +1,14 @@
+INSTRUCTIONS FOR ADDING HERO IMAGE:
+
+1. Save the image from your first screenshot as "hero-image.png"
+2. Place it in the webapp/public/ folder
+3. The image will automatically appear in the hero section
+
+The code is already updated to use /hero-image.png from the public folder.
+
+Alternative file formats supported:
+- hero-image.jpg
+- hero-image.jpeg
+- hero-image.webp
+
+If using a different format, update the src path in webapp/src/app/page.tsx line 55.
