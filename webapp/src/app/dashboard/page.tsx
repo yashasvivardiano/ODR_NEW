@@ -2,15 +2,22 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Navigation from '../../components/Navigation'
 
 export default function Dashboard() {
   const [user, setUser] = useState<any>(null)
 
   useEffect(() => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn')
     const userData = localStorage.getItem('user')
-    if (userData) {
-      setUser(JSON.parse(userData))
+    
+    if (!isLoggedIn || !userData) {
+      // Redirect to login if not authenticated
+      window.location.href = '/login'
+      return
     }
+    
+    setUser(JSON.parse(userData))
   }, [])
 
   const features = [
@@ -47,25 +54,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <h1 className="text-2xl font-bold text-indigo-600">ODR Dashboard</h1>
-            <div className="flex items-center space-x-4">
-              <span className="text-gray-700">Welcome, {user?.email}</span>
-              <button 
-                onClick={() => {
-                  localStorage.removeItem('user')
-                  window.location.href = '/'
-                }}
-                className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
-              >
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Navigation currentPage="/dashboard" unreadCount={2} />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
