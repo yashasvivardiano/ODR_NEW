@@ -28,19 +28,31 @@ export default function LoginPage() {
       return;
     }
     
-    const user = JSON.parse(userData);
-    
-    // Simple validation (in a real app, this would be server-side)
-    if (user.email === formData.email) {
-      // Set user as logged in
-      localStorage.setItem('isLoggedIn', 'true');
-      console.log('Login successful:', user);
-      alert('Login successful! Redirecting to dashboard...');
-      window.location.href = '/dashboard';
-    } else {
-      alert('Invalid email or password. Please try again.');
+    try {
+      // Call your backend API
+      const response = await fetch('http://localhost:3001/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      })
+      
+      if (response.ok) {
+        const data = await response.json()
+        localStorage.setItem('user', JSON.stringify({ email, authenticated: true, token: data.token }))
+        router.push('/dashboard')
+      } else {
+        const error = await response.json()
+        alert('Login failed: ' + (error.message || 'Invalid credentials'))
+      }
+    } catch (error) {
+      console.error('Login error:', error)
+      alert('Login failed: Unable to connect to server')
+    } finally {
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

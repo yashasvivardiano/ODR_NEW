@@ -69,7 +69,12 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onNavigateToSignUp }) => {
 
     try {
       await login(formData.email, formData.password);
-      Alert.alert('Success', 'Login successful!');
+      Alert.alert('Success', 'Login successful!', [
+        { text: 'OK', onPress: () => {
+          // Navigation will be handled automatically by App.tsx
+          // when isAuthenticated becomes true
+        }}
+      ]);
     } catch (error) {
       Alert.alert('Error', 'Login failed. Please check your credentials and try again.');
     }

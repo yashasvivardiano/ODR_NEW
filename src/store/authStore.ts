@@ -24,14 +24,26 @@ export const useAuthStore = create<AuthState>((set) => ({
   login: async (email: string, password: string) => {
     set({ isLoading: true });
     try {
-      // TODO: Implement actual API call
-      // For now, simulate a successful login
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Call your backend API
+      const response = await fetch('http://localhost:3001/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Login failed');
+      }
+      
+      const data = await response.json();
       
       const user: User = {
-        id: '1',
-        email,
-        name: email.split('@')[0],
+        id: data.user?.id || '1',
+        email: data.user?.email || email,
+        name: data.user?.fullName || email.split('@')[0],
       };
       
       set({ 
@@ -48,14 +60,26 @@ export const useAuthStore = create<AuthState>((set) => ({
   signup: async (fullName: string, email: string, password: string) => {
     set({ isLoading: true });
     try {
-      // TODO: Implement actual API call
-      // For now, simulate a successful signup
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Call your backend API
+      const response = await fetch('http://localhost:3001/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fullName, email, password }),
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Registration failed');
+      }
+      
+      const data = await response.json();
       
       const user: User = {
-        id: Date.now().toString(),
-        email,
-        name: fullName,
+        id: data.user?.id || Date.now().toString(),
+        email: data.user?.email || email,
+        name: data.user?.fullName || fullName,
       };
       
       set({ 
