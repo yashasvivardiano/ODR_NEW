@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -17,8 +19,8 @@ export default function Home() {
             <div className="flex items-center space-x-8">
               <nav className="hidden md:flex space-x-8">
                 <a href="#how-it-works" className="text-gray-600 hover:text-gray-900">How it Works</a>
-                <a href="#resources" className="text-gray-600 hover:text-gray-900">Resources</a>
-                <a href="#contact" className="text-gray-600 hover:text-gray-900">Contact Us</a>
+                <Link href="/public-resources" className="text-gray-600 hover:text-gray-900">Resources</Link>
+                <Link href="/public-help" className="text-gray-600 hover:text-gray-900">Contact Us</Link>
               </nav>
               <Link 
                 href="/login" 
@@ -42,12 +44,20 @@ export default function Home() {
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                 Our platform offers a streamlined, efficient, and cost-effective way to resolve disputes without the need for traditional litigation. Get started today and experience a new approach to conflict resolution.
               </p>
-              <Link 
-                href="/ai-filing" 
-                className="bg-orange-500 text-white px-8 py-3 rounded-md hover:bg-orange-600 transition-colors font-medium inline-block"
-              >
-                Submit a New Dispute
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link 
+                  href="/ai-filing" 
+                  className="bg-orange-500 text-white px-8 py-3 rounded-md hover:bg-orange-600 transition-colors font-medium inline-block text-center"
+                >
+                  Submit a New Dispute
+                </Link>
+                <Link 
+                  href="/hearings" 
+                  className="bg-blue-500 text-white px-8 py-3 rounded-md hover:bg-blue-600 transition-colors font-medium inline-block text-center"
+                >
+                  View Hearings
+                </Link>
+              </div>
             </div>
             <div className="flex justify-center">
               <div className="relative w-80 h-80 bg-gradient-to-br from-orange-100 to-green-100 rounded-lg overflow-hidden flex items-center justify-center">
@@ -156,8 +166,20 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Story 1 */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="h-48 relative overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
-                <div className="text-4xl">✅</div>
+              <div className="h-48 relative overflow-hidden">
+                <Image
+                  src="/success-story-1.jpg"
+                  alt="Dispute Resolved in 2 Weeks"
+                  fill
+                  className="object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none'
+                    e.currentTarget.nextElementSibling.style.display = 'flex'
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center" style={{display: 'none'}}>
+                  <div className="text-4xl">✅</div>
+                </div>
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Dispute Resolved in 2 Weeks</h3>
@@ -169,8 +191,20 @@ export default function Home() {
 
             {/* Story 2 */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="h-48 relative overflow-hidden bg-gradient-to-br from-green-100 to-blue-100 flex items-center justify-center">
-                <div className="text-4xl">🤝</div>
+              <div className="h-48 relative overflow-hidden">
+                <Image
+                  src="/success-story-2.png"
+                  alt="Business Partnership Saved"
+                  fill
+                  className="object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none'
+                    e.currentTarget.nextElementSibling.style.display = 'flex'
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-blue-100 flex items-center justify-center" style={{display: 'none'}}>
+                  <div className="text-4xl">🤝</div>
+                </div>
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Business Partnership Saved</h3>
@@ -182,8 +216,20 @@ export default function Home() {
 
             {/* Story 3 */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="h-48 relative overflow-hidden bg-gradient-to-br from-orange-100 to-red-100 flex items-center justify-center">
-                <div className="text-4xl">📋</div>
+              <div className="h-48 relative overflow-hidden">
+                <Image
+                  src="/success-story-3.jpg"
+                  alt="Quick and Cost-Effective Resolution"
+                  fill
+                  className="object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none'
+                    e.currentTarget.nextElementSibling.style.display = 'flex'
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-100 to-red-100 flex items-center justify-center" style={{display: 'none'}}>
+                  <div className="text-4xl">📋</div>
+                </div>
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Quick and Cost-Effective Resolution</h3>
