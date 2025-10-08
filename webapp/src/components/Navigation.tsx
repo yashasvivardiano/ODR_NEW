@@ -27,6 +27,7 @@ export default function Navigation({ currentPage = '', unreadCount = 0 }: Naviga
     { href: '/dashboard', label: 'Dashboard' },
     { href: '/cases', label: 'Cases' },
     { href: '/hearings', label: 'Hearings' },
+    { href: '/documents', label: 'Documents' },
     { href: '/messages', label: 'Messages' },
     { href: '/resources', label: 'Resources' }
   ]
@@ -86,11 +87,11 @@ export default function Navigation({ currentPage = '', unreadCount = 0 }: Naviga
               {/* Help/Support */}
               <button 
                 className={`w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 cursor-pointer ${
-                  currentPage === '/help'
+                  currentPage === '/help-support'
                     ? 'bg-orange-200 shadow-orange-300 shadow-md scale-105'
                     : 'bg-gray-200 hover:bg-orange-200 hover:shadow-orange-300 hover:shadow-md hover:scale-105'
                 }`}
-                onClick={() => window.location.href = '/help'}
+                onClick={() => window.location.href = '/help-support'}
                 title="Help & Support"
                 suppressHydrationWarning
               >

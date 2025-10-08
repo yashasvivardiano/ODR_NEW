@@ -45,3 +45,17 @@ img {
 button, input, select, textarea {
   font-family: inherit;
 }
+
+/* Force input text to be visible */
+input[type="email"], 
+input[type="password"], 
+input[type="text"] {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+input[type="email"]::placeholder, 
+input[type="password"]::placeholder, 
+input[type="text"]::placeholder {
+  color: #6b7280 !important;
+}
