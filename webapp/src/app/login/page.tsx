@@ -80,7 +80,7 @@ export default function LoginPage() {
     } else {
       alert('Invalid credentials for the selected role. Please try again.');
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
