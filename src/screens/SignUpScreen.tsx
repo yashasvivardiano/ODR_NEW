@@ -92,7 +92,12 @@ const SignUpScreen: React.FC<SignUpScreenProps> = ({ onNavigateToLogin }) => {
 
     try {
       await signup(formData.fullName, formData.email, formData.password);
-      Alert.alert('Success', 'Account created successfully!');
+      Alert.alert('Success', 'Account created successfully!', [
+        { text: 'OK', onPress: () => {
+          // Navigation will be handled automatically by App.tsx
+          // when isAuthenticated becomes true
+        }}
+      ]);
     } catch (error) {
       Alert.alert('Error', 'Sign up failed. Please try again.');
     }
