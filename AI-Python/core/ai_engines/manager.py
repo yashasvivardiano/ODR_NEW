@@ -8,10 +8,16 @@ from abc import ABC, abstractmethod
 import asyncio
 from loguru import logger
 
-from .openai_engine import OpenAIEngine
-from .groq_engine import GroqEngine
-from .gemini_engine import GeminiEngine
-from config.settings import get_settings
+# Lazy imports to avoid circular dependencies
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+try:
+    from config.settings import get_settings
+except ImportError:
+    # Fallback for when running from different directory
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+    from config.settings import get_settings
 
 class BaseAIEngine(ABC):
     """Base class for AI engines"""
@@ -36,14 +42,27 @@ class AIEngineManager:
     
     def _initialize_engines(self):
         """Initialize available AI engines"""
-        if self.settings.OPENAI_API_KEY:
-            self.engines["openai"] = OpenAIEngine(self.settings.OPENAI_API_KEY)
+        # Lazy imports to avoid circular dependencies
+        if self.settings.OPENAI_API_KEY and self.settings.OPENAI_API_KEY != "your_openai_api_key_here":
+            try:
+                from .openai_engine import OpenAIEngine
+                self.engines["openai"] = OpenAIEngine(self.settings.OPENAI_API_KEY)
+            except ImportError:
+                logger.warning("OpenAI engine not available - missing dependencies")
         
-        if self.settings.GROQ_API_KEY:
-            self.engines["groq"] = GroqEngine(self.settings.GROQ_API_KEY)
+        if self.settings.GROQ_API_KEY and self.settings.GROQ_API_KEY != "your_groq_api_key_here":
+            try:
+                from .groq_engine import GroqEngine
+                self.engines["groq"] = GroqEngine(self.settings.GROQ_API_KEY)
+            except ImportError:
+                logger.warning("Groq engine not available - missing dependencies")
         
-        if self.settings.GEMINI_API_KEY:
-            self.engines["gemini"] = GeminiEngine(self.settings.GEMINI_API_KEY)
+        if self.settings.GEMINI_API_KEY and self.settings.GEMINI_API_KEY != "your_gemini_api_key_here":
+            try:
+                from .gemini_engine import GeminiEngine
+                self.engines["gemini"] = GeminiEngine(self.settings.GEMINI_API_KEY)
+            except ImportError:
+                logger.warning("Gemini engine not available - missing dependencies")
     
     async def initialize(self):
         """Initialize all engines"""
