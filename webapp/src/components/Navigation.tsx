@@ -28,6 +28,7 @@ export default function Navigation({ currentPage = '', unreadCount = 0 }: Naviga
     { href: '/cases', label: 'Cases' },
     { href: '/hearings', label: 'Hearings' },
     { href: '/messages', label: 'Messages' },
+    { href: '/ai-test', label: 'AI Test' },
     { href: '/resources', label: 'Resources' }
   ]
 
