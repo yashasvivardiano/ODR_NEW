@@ -47,3 +47,21 @@ python main.py
 - ✅ Production-ready architecture
 - ✅ Comprehensive error handling
 - ✅ No mock implementations
+- ✅ Security-first design
+- ✅ File upload and processing
+- ✅ Audio transcription with Whisper
+- ✅ Video analysis for court hearings
+
+## 🔒 Security
+- 🔐 Environment-based configuration
+- 🛡️ PII redaction for privacy
+- 📁 Secure file handling
+- 🚫 No hardcoded secrets
+- 📋 Comprehensive security guide (see SECURITY.md)
+
+## ⚠️ Important Security Notes
+- **NEVER** commit `.env` files to version control
+- Always use strong, unique API keys
+- Set `PRODUCTION=true` for production deployments
+- Configure proper CORS origins
+- See [SECURITY.md](SECURITY.md) for detailed security guidelines

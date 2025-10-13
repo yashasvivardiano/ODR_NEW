@@ -41,11 +41,12 @@ app = FastAPI(
 )
 
 # CORS middleware
+settings = get_settings()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Configure for production
-    allow_credentials=True,
-    allow_methods=["*"],
+    allow_origins=settings.allowed_origins_list,
+    allow_credentials=settings.ALLOWED_CREDENTIALS,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -53,6 +54,16 @@ app.add_middleware(
 app.include_router(filing.router, prefix="/api/v1/filing", tags=["filing"])
 app.include_router(hearing.router, prefix="/api/v1/hearing", tags=["hearing"])
 app.include_router(transcription.router, prefix="/api/v1/transcription", tags=["transcription"])
+
+# Inject AI manager into hearing service
+@app.on_event("startup")
+async def inject_ai_manager():
+    """Inject AI manager into services that need it"""
+    global ai_engine_manager
+    if ai_engine_manager:
+        # Inject into hearing service
+        import api.endpoints.hearing as hearing_module
+        hearing_module.ai_manager = ai_engine_manager
 
 @app.get("/")
 async def root():
