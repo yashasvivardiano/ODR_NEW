@@ -7,7 +7,6 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60,
   },
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ['@next/font'],
   },
   compress: true,
