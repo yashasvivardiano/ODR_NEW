@@ -1,17 +1,17 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const { db } = require('./config/database');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 
 // Security middleware
 app.use(helmet());
 app.use(cors({
-  origin: ['http://localhost:3000', 'exp://192.168.29.168:8084'],
+  origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'exp://192.168.29.168:8084'],
   credentials: true
 }));
 
@@ -26,16 +26,9 @@ app.use(limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// MongoDB connection (optional for testing)
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/odr-platform';
-
-// Try to connect to MongoDB, but don't fail if it's not available
-mongoose.connect(MONGODB_URI)
-.then(() => console.log('✅ MongoDB connected successfully'))
-.catch(err => {
-  console.log('⚠️ MongoDB not available - running without database');
-  console.log('   Some features may not work without MongoDB');
-});
+// SQLite database connection
+console.log('✅ SQLite database connected successfully');
+console.log('📊 Database initialized with tables and indexes');
 
 // Basic API routes (temporary)
 app.get('/api/test', (req, res) => {
@@ -61,12 +54,10 @@ app.get('/api/status', (req, res) => {
   });
 });
 
-// Try to load routes if they exist
+// Load SQLite-based routes
 try {
-  if (require('fs').existsSync('./routes/auth.js')) {
-    app.use('/api/auth', require('./routes/auth'));
-    console.log('✅ Auth routes loaded');
-  }
+  app.use('/api/auth', require('./routes/auth-sqlite'));
+  console.log('✅ Auth routes loaded (SQLite)');
 } catch (error) {
   console.log('❌ Auth routes not available:', error.message);
 }

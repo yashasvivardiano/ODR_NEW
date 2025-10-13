@@ -89,7 +89,6 @@ router.post('/match-mediator', async (req, res) => {
     // AI mediator matching logic would go here
     const matchedMediators = [
       {
-        id: '1',
         name: 'John Smith',
         specialization: [caseCategory],
         experience: 10,
@@ -98,7 +97,6 @@ router.post('/match-mediator', async (req, res) => {
         matchScore: 95
       },
       {
-        id: '2',
         name: 'Sarah Johnson',
         specialization: [caseCategory, 'commercial'],
         experience: 8,
@@ -116,6 +114,42 @@ router.post('/match-mediator', async (req, res) => {
   } catch (error) {
     console.error('AI mediator matching error:', error);
     res.status(500).json({ message: 'Mediator matching failed' });
+  }
+});
+
+// AI-powered hearing assistance
+router.post('/hearing-assistance', async (req, res) => {
+  try {
+    const { hearingType, caseDetails } = req.body;
+    
+    // AI hearing assistance logic would go here
+    const assistance = {
+      hearingType: hearingType || 'mediation',
+      suggestedApproach: 'Collaborative mediation with structured negotiation',
+      keyPoints: [
+        'Identify core interests of both parties',
+        'Focus on win-win solutions',
+        'Maintain neutral and professional tone',
+        'Document all agreements clearly'
+      ],
+      questions: [
+        'What is your primary concern in this dispute?',
+        'What would an ideal resolution look like for you?',
+        'Are there any non-negotiable points?',
+        'What compromises are you willing to consider?'
+      ],
+      expectedOutcome: 'Mutually acceptable resolution through guided negotiation',
+      confidenceLevel: '85%'
+    };
+
+    res.json({
+      success: true,
+      assistance,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('AI hearing assistance error:', error);
+    res.status(500).json({ message: 'Hearing assistance failed' });
   }
 });
 
@@ -194,6 +228,35 @@ router.post('/suggest-settlement', async (req, res) => {
   } catch (error) {
     console.error('AI settlement suggestion error:', error);
     res.status(500).json({ message: 'Settlement suggestion failed' });
+  }
+});
+
+// AI-powered filing assistance
+router.post('/file-assist', async (req, res) => {
+  try {
+    const { disputeDescription, existingData } = req.body;
+    
+    // AI filing assistance logic would go here
+    const suggestions = {
+      suggestedCaseType: 'Mediation',
+      suggestedUrgency: 'Medium',
+      improvementSuggestions: [
+        'Include specific dates and amounts',
+        'Mention any previous communication attempts',
+        'Add supporting evidence details',
+        'Specify desired resolution outcome'
+      ],
+      confidence: 85
+    };
+
+    res.json({
+      success: true,
+      ...suggestions,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('AI filing assistance error:', error);
+    res.status(500).json({ message: 'Filing assistance failed' });
   }
 });
 
