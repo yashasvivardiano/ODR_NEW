@@ -13,7 +13,7 @@ class GeminiEngine(BaseAIEngine):
     
     def __init__(self, api_key: str):
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.model = genai.GenerativeModel('gemini-2.0-flash')
         self.api_key = api_key
     
     async def generate_response(self, prompt: str, **kwargs) -> Dict[str, Any]:
@@ -40,7 +40,7 @@ class GeminiEngine(BaseAIEngine):
             return {
                 "content": response.text,
                 "provider": "gemini",
-                "model": "gemini-1.5-flash",
+                "model": "gemini-2.0-flash",
                 "usage": {
                     "prompt_tokens": len(full_prompt.split()),
                     "completion_tokens": len(response.text.split()) if response.text else 0
