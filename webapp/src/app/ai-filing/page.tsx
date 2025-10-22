@@ -31,6 +31,20 @@ export default function AIFiling() {
   ]
 
   const handleNext = () => {
+    // Validate required fields for current step
+    if (currentStep === 1) {
+      if (!formData.disputeDescription.trim() || !formData.amountInDispute.trim() || !formData.disputeCategory) {
+        alert('Please fill in all required fields before proceeding.')
+        return
+      }
+    }
+    if (currentStep === 2) {
+      if (!formData.opposingParty.trim() || !formData.contactInfo.trim()) {
+        alert('Please fill in all required fields before proceeding.')
+        return
+      }
+    }
+    
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1)
     }
@@ -133,7 +147,7 @@ export default function AIFiling() {
               <div className="space-y-6">
                 <div>
                   <label className="block text-lg font-medium text-gray-900 mb-3">
-                    Dispute Description
+                    Dispute Description <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     value={formData.disputeDescription}
@@ -147,7 +161,7 @@ export default function AIFiling() {
 
                 <div>
                   <label className="block text-lg font-medium text-gray-900 mb-3">
-                    Amount in Dispute
+                    Amount in Dispute <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -161,7 +175,7 @@ export default function AIFiling() {
 
                 <div>
                   <label className="block text-lg font-medium text-gray-900 mb-3">
-                    Dispute Category
+                    Dispute Category <span className="text-red-500">*</span>
                   </label>
                   <select
                     value={formData.disputeCategory}
@@ -183,7 +197,7 @@ export default function AIFiling() {
               <div className="space-y-6">
                 <div>
                   <label className="block text-lg font-medium text-gray-900 mb-3">
-                    Opposing Party Name
+                    Opposing Party Name <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -197,7 +211,7 @@ export default function AIFiling() {
 
                 <div>
                   <label className="block text-lg font-medium text-gray-900 mb-3">
-                    Contact Information
+                    Contact Information <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     value={formData.contactInfo}
@@ -303,7 +317,16 @@ export default function AIFiling() {
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="px-6 py-3 bg-orange-500 text-white rounded-lg font-medium hover:bg-orange-600 transition-colors"
+                  disabled={
+                    (currentStep === 1 && (!formData.disputeDescription.trim() || !formData.amountInDispute.trim() || !formData.disputeCategory)) ||
+                    (currentStep === 2 && (!formData.opposingParty.trim() || !formData.contactInfo.trim()))
+                  }
+                  className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                    (currentStep === 1 && (!formData.disputeDescription.trim() || !formData.amountInDispute.trim() || !formData.disputeCategory)) ||
+                    (currentStep === 2 && (!formData.opposingParty.trim() || !formData.contactInfo.trim()))
+                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      : 'bg-orange-500 text-white hover:bg-orange-600'
+                  }`}
                 >
                   Next: {currentStep === 1 ? 'Identify Opposing Party' : 
                          currentStep === 2 ? 'Upload Supporting Documents' : 
