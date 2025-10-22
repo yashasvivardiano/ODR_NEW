@@ -1,0 +1,142 @@
+{
+  "test_timestamp": "2025-10-14T12:22:47.501966",
+  "health_check": {
+    "status": "healthy",
+    "timestamp": "2025-10-14T12:22:37.138017",
+    "services": {
+      "gemini": "healthy",
+      "api": "healthy"
+    }
+  },
+  "filing_test": {
+    "request_id": "filing_20251014_122243",
+    "suggestions": {
+      "case_type": {
+        "recommended": "Mediation",
+        "confidence": 0.85,
+        "rationale": "Given the nature of the dispute involving delivery delays and quality issues ('wrong gender and wrong size'), mediation provides a platform for Kal-El and A-BC Suppliers to collaboratively find a mutually acceptable solution. It allows for open communication and addresses the specific concerns regarding product specifications. Mediation is often effective in resolving contract disputes without escalating to more adversarial processes.",
+        "alternatives": [
+          {
+            "type": "Arbitration",
+            "confidence": 0.65,
+            "reason": "If mediation fails, arbitration offers a binding decision from a neutral third party, providing a more formal and conclusive resolution to the contract dispute. This is suitable if the parties require a definitive outcome."
+          }
+        ]
+      },
+      "required_documents": [
+        {
+          "type": "Contract",
+          "description": "The signed contract between Kal-El and A-BC Suppliers, outlining the terms of agreement, including product specifications, delivery timelines, and quality standards.",
+          "priority": "Required",
+          "reason": "Essential to establish the contractual obligations of both parties."
+        },
+        {
+          "type": "Invoice",
+          "description": "Invoices related to the order, showing the items ordered, quantities, and agreed prices.",
+          "priority": "Required",
+          "reason": "Confirms the details of the specific transaction in dispute."
+        },
+        {
+          "type": "Email_Communication",
+          "description": "All email correspondence between Kal-El and A-BC Suppliers regarding the order, delivery, quality concerns, and any attempts to resolve the issues.",
+          "priority": "Recommended",
+          "reason": "Provides evidence of communication, negotiations, and any admissions or acknowledgments of the issues."
+        },
+        {
+          "type": "Evidence_Photo",
+          "description": "Photographic evidence of the delivered goods, clearly showing the wrong size or gender specifications.",
+          "priority": "Recommended",
+          "reason": "Visually demonstrates the quality issues and discrepancies in product specifications."
+        },
+        {
+          "type": "Legal_Notice",
+          "description": "Any legal notices sent to A-BC Suppliers regarding the breach of contract.",
+          "priority": "Optional",
+          "reason": "Indicates the formal steps taken to address the dispute."
+        }
+      ],
+      "field_hints": {
+        "title": "Contract Dispute: A-BC Suppliers - Delivery Delay & Quality Issues (Wrong Size/Gender)",
+        "jurisdiction": "Mumbai, based on the information provided. Verify the contract for specific jurisdiction clauses.",
+        "estimated_timeline": "Resolution expected within 3-6 months, contingent on the chosen dispute resolution method and cooperation of parties.",
+        "suggested_amount": 69420.0
+      },
+      "urgency": {
+        "level": "Medium",
+        "confidence": 0.75,
+        "factors": [
+          "Financial impact of the delayed delivery and substandard goods on Kal-El's business.",
+          "Potential disruption to Kal-El's operations due to the lack of required materials.",
+          "Risk of further losses if the issue is not resolved promptly.",
+          "Existence of a time-sensitive contract or project dependent on the delivery."
+        ]
+      }
+    },
+    "metadata": {
+      "provider": "gemini",
+      "model": "gemini-2.0-flash",
+      "timestamp": "2025-10-14T12:22:43.682743",
+      "processing_time_ms": 0
+    }
+  },
+  "transcript_test": {
+    "request_id": "transcript_20251014_122247",
+    "formatted_transcript": {
+      "format_type": "structured",
+      "language": "en",
+      "content": {
+        "structured": [
+          {
+            "timestamp": "00:00:00",
+            "speaker": "Judge",
+            "content": "Please state your case."
+          },
+          {
+            "timestamp": "00:00:03",
+            "speaker": "Lawyer",
+            "content": "Your honor, this is a contract dispute case. The defendant failed to deliver goods as agreed."
+          },
+          {
+            "timestamp": "00:00:10",
+            "speaker": "Judge",
+            "content": "What are the key issues?"
+          },
+          {
+            "timestamp": "00:00:13",
+            "speaker": "Lawyer",
+            "content": "The main issues are delivery delays and quality problems."
+          }
+        ],
+        "summary": "The hearing concerns a contract dispute where the defendant allegedly failed to deliver goods as agreed, leading to delivery delays and quality issues.",
+        "key_points": [
+          "Contract dispute case",
+          "Failure to deliver goods",
+          "Delivery delays",
+          "Quality problems"
+        ]
+      },
+      "metadata": {
+        "total_duration": "00:00:17",
+        "speakers": [
+          "Judge",
+          "Lawyer"
+        ],
+        "word_count": 41,
+        "confidence": 0.95
+      }
+    },
+    "metadata": {
+      "provider": "gemini",
+      "model": "gemini-2.0-flash",
+      "format_type": "structured",
+      "language": "en",
+      "timestamp": "2025-10-14T12:22:47.487864"
+    }
+  },
+  "summary": {
+    "all_tests_passed": true,
+    "health_status": "healthy",
+    "filing_status": "working",
+    "transcript_status": "working"
+  }
+}

@@ -1,3 +1,0 @@
-"""
-Transcription services
-"""
