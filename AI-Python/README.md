@@ -1,67 +1,74 @@
-# ODR AI System - Python Implementation
+# ODR AI Service
 
-## 🎯 Overview
-Clean, production-ready AI system for Online Dispute Resolution platform.
-
-## 📁 Directory Structure
-```
-AI-Python/
-├── core/                    # Core AI functionality
-│   ├── ai_engines/         # AI provider integrations
-│   ├── processors/         # Data processing pipelines
-│   └── validators/         # Input validation
-├── services/               # Business logic services
-│   ├── filing/            # Case filing AI
-│   ├── hearing/           # Court hearing AI
-│   ├── transcription/     # Speech-to-text
-│   └── analysis/          # Data analysis
-├── models/                 # Data models
-│   ├── database/          # Database models
-│   ├── ai_models/         # AI response models
-│   └── schemas/           # Pydantic schemas
-├── utils/                  # Utility functions
-│   ├── security/          # Security utilities
-│   ├── file_processing/   # File handling
-│   └── logging/           # Logging utilities
-├── api/                    # API layer
-│   ├── endpoints/         # API endpoints
-│   ├── middleware/        # API middleware
-│   └── serializers/       # Response serializers
-├── tests/                  # Test suite
-├── config/                 # Configuration
-└── docs/                   # Documentation
-```
+**Single-file AI service with Gemini API for legal dispute resolution.**
 
 ## 🚀 Quick Start
-```bash
-# Install dependencies
-pip install -r requirements.txt
 
-# Run the AI service
-python main.py
+```bash
+pip install -r requirements.txt
+python ai_service.py
 ```
 
-## 🔧 Features
-- ✅ Real AI provider integrations (OpenAI, Groq, Gemini)
-- ✅ Clean separation of concerns
-- ✅ Production-ready architecture
-- ✅ Comprehensive error handling
-- ✅ No mock implementations
-- ✅ Security-first design
-- ✅ File upload and processing
-- ✅ Audio transcription with Whisper
-- ✅ Video analysis for court hearings
+## 📡 API Endpoints
 
-## 🔒 Security
-- 🔐 Environment-based configuration
-- 🛡️ PII redaction for privacy
-- 📁 Secure file handling
-- 🚫 No hardcoded secrets
-- 📋 Comprehensive security guide (see SECURITY.md)
+**Base URL:** `http://localhost:8000`
 
-## ⚠️ Important Security Notes
-- **NEVER** commit `.env` files to version control
-- Always use strong, unique API keys
-- Set `PRODUCTION=true` for production deployments
-- Configure proper CORS origins
-- See [SECURITY.md](SECURITY.md) for detailed security guidelines
+### Filing Suggestions
+```bash
+POST /api/filing/suggestions
+```
+```json
+{
+  "dispute_title": "Contract Dispute",
+  "dispute_description": "Supplier delivered wrong goods",
+  "preferred_provider": "gemini"
+}
+```
+
+### Transcript Formatting
+```bash
+POST /api/transcript/format
+```
+```json
+{
+  "raw_text": "Judge: Please state your case. Lawyer: This is a contract dispute.",
+  "format_type": "structured"
+}
+```
+
+### Health Check
+```bash
+GET /health
+```
+
+## 🔧 Configuration
+
+```env
+GEMINI_API_KEY=AIzaSyCrvuz2DjR4bS-Uy14deDoXIuzSJMM1m1Q
+HOST=0.0.0.0
+PORT=8000
+```
+
+## 💻 Backend Integration
+
+**Python:**
+```python
+import httpx
+response = await client.post("http://localhost:8000/api/filing/suggestions", json=data)
+```
+
+**JavaScript:**
+```javascript
+const response = await fetch('http://localhost:8000/api/filing/suggestions', {
+  method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)
+});
+```
+
+## 📁 Files
+
+- `ai_service.py` - Main service (single file)
+- `requirements.txt` - Dependencies  
+- `.env` - Configuration
+- `example_*.json` - Sample responses
+
+**Ready to use!**
