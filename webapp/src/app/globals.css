@@ -2,7 +2,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
 }
 
 @theme inline {
@@ -14,8 +14,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #000000;
   }
 }
 
@@ -49,13 +49,34 @@ button, input, select, textarea {
 /* Force input text to be visible */
 input[type="email"], 
 input[type="password"], 
-input[type="text"] {
+input[type="text"],
+textarea,
+select {
   color: #000000 !important;
   background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
 }
 
 input[type="email"]::placeholder, 
 input[type="password"]::placeholder, 
-input[type="text"]::placeholder {
+input[type="text"]::placeholder,
+textarea::placeholder {
   color: #6b7280 !important;
+}
+
+/* Ensure all text is visible */
+* {
+  color: inherit;
+}
+
+body {
+  color: #000000 !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #000000 !important;
+}
+
+p, span, div {
+  color: #000000 !important;
 }

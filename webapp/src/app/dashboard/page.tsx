@@ -29,20 +29,6 @@ export default function Dashboard() {
       color: 'bg-blue-500'
     },
     {
-      title: 'Court Hearing AI',
-      description: 'Process hearing recordings with AI analysis',
-      icon: '⚖️',
-      href: '/hearing-ai',
-      color: 'bg-purple-500'
-    },
-    {
-      title: 'Case History',
-      description: 'View all your filed cases and activities',
-      icon: '📋',
-      href: '/history',
-      color: 'bg-green-500'
-    },
-    {
       title: 'Virtual Hearings',
       description: 'Join scheduled video hearings',
       icon: '🎥',
