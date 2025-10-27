@@ -53,7 +53,7 @@ export default function AITest() {
   const testCaseAnalysis = async () => {
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:3001/api/ai/analyze-case', {
+      const response = await fetch('http://localhost:3002/api/ai/analyze-case', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ export default function AITest() {
   const testMediatorMatch = async () => {
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:3001/api/ai/match-mediator', {
+      const response = await fetch('http://localhost:3002/api/ai/match-mediator', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ export default function AITest() {
   const testHearingAI = async () => {
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:3001/api/ai/hearing-assistance', {
+      const response = await fetch('http://localhost:3002/api/ai/hearing-assistance', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
